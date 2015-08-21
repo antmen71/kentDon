@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -54,11 +55,21 @@ namespace kentselDonusumPlatformu
             }
 
         }
-        
+
+        public string guidSql (string mailAddress)
+        {
+            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
+            SqlCommand check = new SqlCommand("SELECT guid FROM kullanici WHERE eposta=@email", sqlConn);
+            check.Parameters.AddWithValue("@email", mailAddress);
+            sqlConn.Open();
+            string guidSql = check.ExecuteScalar().ToString();
+            return guidSql;
+        }
+
         protected void Unnamed1_Click1(object sender, EventArgs e)
         {
 
-            if (isim.Text == "" || soyisim.Text == "" || email.Text == "" || password.Text == "" || password1.Text == "")
+            if (isim.Text == "" || soyisim.Text == "" || email.Text == "" || password.Text == "" || password1.Text == "" || password.Text !=password1.Text)
             {
                 isimLbl.Text = "Lütfen kontrol ediniz";
                 soyisimLbl.Text = "Lütfen kontrol ediniz";
@@ -69,28 +80,66 @@ namespace kentselDonusumPlatformu
             }
 
             SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-            SqlCommand insert = new SqlCommand("insert into kullanici(isim,soyad,eposta,sifre) values(@isim,@soyisim,@eposta,@sifre)", sqlConn);
+            SqlCommand insert = new SqlCommand("insert into kullanici(isim,soyad,eposta,sifre,guid) values(@isim,@soyisim,@eposta,@sifre,@guid)", sqlConn);
             insert.Parameters.AddWithValue("@isim", isim.Text);
             insert.Parameters.AddWithValue("@soyisim", soyisim.Text);
             insert.Parameters.AddWithValue("@eposta", email.Text);
             string sifreEnc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(password.Text));
             insert.Parameters.AddWithValue("@sifre", sifreEnc);
-
+            Guid guid = Guid.NewGuid();
+            insert.Parameters.AddWithValue("@guid", guid);
             sqlConn.Open();
             bool epostaKayitlimi = checkMail(email.Text);
             string eposta = email.Text;
             if (epostaKayitlimi == false)
             {
                 emailLbl.Text = "bu posta adresi ile daha önce kayıt alınmıştır";
-               
-          
+
+                return;
             }
 
 
             else
             {
-                //insert.ExecuteNonQuery();
-                try { insert.ExecuteNonQuery(); }
+
+                try
+                {
+                    insert.ExecuteNonQuery();
+                    //MailDefinition mailDef = new MailDefinition();
+                    //mailDef.From = "orkunantmen@hotmail.com";
+                    //mailDef.Subject = "Kentsel Dönüşüm Platformuna hoşgeldiniz!";
+
+                    SmtpClient client = new SmtpClient("mail.ottobock.int");
+                    
+                    client.Port = 25;
+                    //client.Host = ;
+                    client.EnableSsl = true;
+                    client.Timeout = 10000;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new System.Net.NetworkCredential("orkun.antmen@ottobock.com", "narosirt71");
+
+                    MailMessage mm = new MailMessage("orkunantmen@hotmail.com", email.Text);
+                    string body1 = "Kentsel dönüşüm platformuna kayıt olduğunuz için teşekkür ederiz. Üyeliğinizin aktif hale getirilmesi için lütfen aşağıdaki linki tıklayınız.";
+                    string body2 = "\r\n";
+                    string body3 = "http://www.kentseldonusumplatformu.com/uyeonay.aspx?g=";
+                    string cliGuid = guidSql(email.Text);
+                    mm.Body = body1 + body2 + body3+cliGuid;
+
+                    mm.Subject = "aman";
+
+                    try
+                    {
+
+                        client.Send(mm);
+                    }
+                    catch (SmtpException smEx)
+                    {
+                        isimLbl.Text = smEx.ToString();
+                    }
+
+                    Response.Redirect("kayitBasarili.aspx");
+                }
                 catch (SqlException ex)
                 {
 
@@ -100,9 +149,7 @@ namespace kentselDonusumPlatformu
 
                 sqlConn.Close();
 
-                //    Response.Redirect("default.aspx");
-                //else
-                //    isimLbl.Text = "başarılı değil";
+
 
                 clearForm();
             }
