@@ -34,7 +34,7 @@
             <%--<div id="middleleftPan" style="width: 100%">--%>
 
                 <div id="middlerightPan" style="width: 100%">
-                    <form id="form1" runat="server" style="width: 70%">
+                    <form id="form1" runat="server" style="width: 100%">
                         <h2>Üye Ol</h2>
                         <label>Adınız:</label><br />
                         <%isim.Attributes.Add("onblur", "return validateIsim()");
