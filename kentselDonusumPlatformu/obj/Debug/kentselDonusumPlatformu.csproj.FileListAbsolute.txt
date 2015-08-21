@@ -1,0 +1,6 @@
+c:\users\trisoran\documents\visual studio 2015\Projects\kentselDonusumPlatformu\kentselDonusumPlatformu\bin\kentselDonusumPlatformu.dll.config
+c:\users\trisoran\documents\visual studio 2015\Projects\kentselDonusumPlatformu\kentselDonusumPlatformu\bin\kentselDonusumPlatformu.dll
+c:\users\trisoran\documents\visual studio 2015\Projects\kentselDonusumPlatformu\kentselDonusumPlatformu\bin\kentselDonusumPlatformu.pdb
+c:\users\trisoran\documents\visual studio 2015\Projects\kentselDonusumPlatformu\kentselDonusumPlatformu\obj\Debug\kentselDonusumPlatformu.csprojResolveAssemblyReference.cache
+c:\users\trisoran\documents\visual studio 2015\Projects\kentselDonusumPlatformu\kentselDonusumPlatformu\obj\Debug\kentselDonusumPlatformu.dll
+c:\users\trisoran\documents\visual studio 2015\Projects\kentselDonusumPlatformu\kentselDonusumPlatformu\obj\Debug\kentselDonusumPlatformu.pdb
