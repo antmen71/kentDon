@@ -54,6 +54,7 @@ namespace kentselDonusumPlatformu
                         
             else 
             {
+
                 Label lblWarning = (Label)FindControl("Label1");
                 lblWarning.ForeColor = System.Drawing.Color.Red;
                 lblWarning.Text = "Eposta veya şifreniz hatalıdır lütfen tekrar deneyiniz.";

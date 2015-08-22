@@ -63,7 +63,7 @@ function validatePassEq() {
         document.getElementById('sifreLbl').innerHTML = 'İki şifrenin de aynı olduğuna emin olunuz';
         document.getElementById('sifreLbl2').innerHTML = 'İki şifrenin de aynı olduğuna emin olunuz';
 
-        //return false;
+        return false;
     }
     else if (sifre == sifre1) {
         document.getElementById("sifreLbl2").innerHTML = "*";

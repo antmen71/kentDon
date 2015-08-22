@@ -56,7 +56,7 @@ namespace kentselDonusumPlatformu
 
         }
 
-        public string guidSql (string mailAddress)
+        public string guidSql(string mailAddress)
         {
             SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
             SqlCommand check = new SqlCommand("SELECT guid FROM kullanici WHERE eposta=@email", sqlConn);
@@ -69,7 +69,7 @@ namespace kentselDonusumPlatformu
         protected void Unnamed1_Click1(object sender, EventArgs e)
         {
 
-            if (isim.Text == "" || soyisim.Text == "" || email.Text == "" || password.Text == "" || password1.Text == "" || password.Text !=password1.Text)
+            if (isim.Text == "" || soyisim.Text == "" || email.Text == "" || password.Text == "" || password1.Text == "" || password.Text != password1.Text)
             {
                 isimLbl.Text = "Lütfen kontrol ediniz";
                 soyisimLbl.Text = "Lütfen kontrol ediniz";
@@ -105,24 +105,38 @@ namespace kentselDonusumPlatformu
                 try
                 {
                     insert.ExecuteNonQuery();
-                  
+
 
                     SmtpClient client = new SmtpClient("smtp.live.com");
-                    
+
                     client.Port = 587;
-                  
+
                     client.EnableSsl = true;
                     client.Timeout = 10000;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
                     client.Credentials = new System.Net.NetworkCredential("orkunantmen@hotmail.com", "zenuKar71");
 
-                    MailMessage mm = new MailMessage("orkunantmen@hotmail.com", email.Text);
+                    MailMessage mm;
+                    try
+                    {
+                      mm  = new MailMessage("orkunantmen@hotmail.com", email.Text);
+                    }
+                    catch
+                    {
+                        emailLbl.ForeColor = System.Drawing.Color.Red;
+                        emailLbl.Text = "Eposta adresinisi kontrol ediniz.";
+                        return;
+
+                    }
                     string body1 = "Kentsel dönüşüm platformuna kayıt olduğunuz için teşekkür ederiz. Üyeliğinizin aktif hale getirilmesi için lütfen aşağıdaki linki tıklayınız.";
                     string body2 = "\r\n";
                     string body3 = "http://www.kentseldonusumplatformu.com/uyeonay.aspx?g=";
                     string cliGuid = guidSql(email.Text);
-                    mm.Body = body1 + body2 + body3+cliGuid;
+                    char[] cliGuidArray = cliGuid.ToCharArray();
+                    Array.Reverse(cliGuidArray);
+                    string revCliGuid = new String(cliGuidArray);
+                    mm.Body = body1 + body2 + body3 + cliGuid +revCliGuid;
 
                     mm.Subject = "Kentsel Dönüşüm Platformuna hoşgeldiniz!";
 
