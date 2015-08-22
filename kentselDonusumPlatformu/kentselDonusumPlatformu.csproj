@@ -70,6 +70,7 @@
     <Content Include="index.aspx" />
     <Content Include="kaydol.aspx" />
     <Content Include="kayitBasarili.aspx" />
+    <Content Include="loggeddef.aspx" />
     <Content Include="style.css" />
     <Content Include="uyeOl.aspx" />
     <Content Include="validateForm.js" />
@@ -92,6 +93,13 @@
     </Compile>
     <Compile Include="kayitBasarili.aspx.designer.cs">
       <DependentUpon>kayitBasarili.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="loggeddef.aspx.cs">
+      <DependentUpon>loggeddef.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="loggeddef.aspx.designer.cs">
+      <DependentUpon>loggeddef.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="uyeOl.aspx.cs">

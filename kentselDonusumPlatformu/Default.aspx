@@ -46,7 +46,8 @@
                     <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox><br />
                     &nbsp;<div id="register"><a href="uyeOl.aspx">Üye olun</a></div>
                     <asp:Button name="login" type="submit" class="button" Text="Giriş" runat="server" OnClick="Unnamed1_Click" />
-                    <br />
+                    <br /><br />
+<asp:Label ID="Label1" runat="server"></asp:Label>
                 </form>
                 <p class="online"><a href="kaydol.aspx">Siteye giriş için yardım</a></p>
             </div>

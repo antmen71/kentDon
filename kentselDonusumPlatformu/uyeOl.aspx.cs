@@ -105,19 +105,17 @@ namespace kentselDonusumPlatformu
                 try
                 {
                     insert.ExecuteNonQuery();
-                    //MailDefinition mailDef = new MailDefinition();
-                    //mailDef.From = "orkunantmen@hotmail.com";
-                    //mailDef.Subject = "Kentsel Dönüşüm Platformuna hoşgeldiniz!";
+                  
 
-                    SmtpClient client = new SmtpClient("mail.ottobock.int");
+                    SmtpClient client = new SmtpClient("smtp.live.com");
                     
-                    client.Port = 25;
-                    //client.Host = ;
+                    client.Port = 587;
+                  
                     client.EnableSsl = true;
                     client.Timeout = 10000;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new System.Net.NetworkCredential("orkun.antmen@ottobock.com", "narosirt71");
+                    client.Credentials = new System.Net.NetworkCredential("orkunantmen@hotmail.com", "zenuKar71");
 
                     MailMessage mm = new MailMessage("orkunantmen@hotmail.com", email.Text);
                     string body1 = "Kentsel dönüşüm platformuna kayıt olduğunuz için teşekkür ederiz. Üyeliğinizin aktif hale getirilmesi için lütfen aşağıdaki linki tıklayınız.";
@@ -126,7 +124,7 @@ namespace kentselDonusumPlatformu
                     string cliGuid = guidSql(email.Text);
                     mm.Body = body1 + body2 + body3+cliGuid;
 
-                    mm.Subject = "aman";
+                    mm.Subject = "Kentsel Dönüşüm Platformuna hoşgeldiniz!";
 
                     try
                     {
