@@ -107,7 +107,7 @@ namespace kentselDonusumPlatformu
                     insert.ExecuteNonQuery();
 
 
-                    SmtpClient client = new SmtpClient("smtp.live.com");
+                    SmtpClient client = new SmtpClient("mail.orkunantmen.com");
 
                     client.Port = 587;
 
@@ -115,12 +115,12 @@ namespace kentselDonusumPlatformu
                     client.Timeout = 10000;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new System.Net.NetworkCredential("orkunantmen@hotmail.com", "zenuKar71");
+                    client.Credentials = new System.Net.NetworkCredential("kdp@orkunantmen.com", "Narosirt71");
 
                     MailMessage mm;
                     try
                     {
-                      mm  = new MailMessage("orkunantmen@hotmail.com", email.Text);
+                      mm  = new MailMessage("kdp@orkunantmen.com", email.Text);
                     }
                     catch
                     {

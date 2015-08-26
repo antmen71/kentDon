@@ -94,6 +94,7 @@
     <Compile Include="kayitBasarili.aspx.designer.cs">
       <DependentUpon>kayitBasarili.aspx</DependentUpon>
     </Compile>
+    <Compile Include="kullanici.cs" />
     <Compile Include="loggeddef.aspx.cs">
       <DependentUpon>loggeddef.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
