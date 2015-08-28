@@ -15,7 +15,8 @@ namespace kentselDonusumPlatformu
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            TextBox txt = (TextBox)FindControl("TextBox1");
+            txt.Focus();
         }
         
         protected void Unnamed1_Click(object sender, EventArgs e)

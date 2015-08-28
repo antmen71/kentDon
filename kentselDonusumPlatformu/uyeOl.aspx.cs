@@ -105,11 +105,11 @@ namespace kentselDonusumPlatformu
                 try
                 {
                     insert.ExecuteNonQuery();
-
+                    
 
                     SmtpClient client = new SmtpClient("mail.orkunantmen.com");
 
-                    client.Port = 587;
+                    client.Port = 25;
 
                     client.EnableSsl = true;
                     client.Timeout = 10000;

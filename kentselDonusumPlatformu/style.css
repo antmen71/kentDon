@@ -33,7 +33,7 @@ background:url(images/middlepanbg.gif) 0 0 repeat-x #F0F0F0; color:#666; padding
 }
 
 /*--left panel--*/
-#middleleftPan{width:352px; 
+#middleleftPan{width:472px; 
                
 float:left;
 }
@@ -104,7 +104,9 @@ float:right;
 /*--/Bottom Left Panel--*/
 /*--Bottom Right Panel--*/
 #bottomrightPan{width:354px; float:left;}
-#bottomrightPan p{padding:10px 2px 0 60px;} 
+#bottomrightPan p{padding:10px 2px 0 60px;
+    height: 41px;
+} 
 #bottomrightPan p span.boldtext{font-weight:bold;}
 
 #bottomrightPan p.more{width:80px; height:24px; margin:20px 0 0 238px; padding:0;}
