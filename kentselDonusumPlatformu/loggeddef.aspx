@@ -36,14 +36,30 @@
                 <%--<div id="middleleftPan" style="width: 100%">--%>
 
                 <div id="middlerightPan" style="width: 100%">
-                    <asp:Repeater ID="Repeater1" runat="server">
+                    <% 
+                        string email = Request.QueryString["e"];
+
+                byte[] encodedByte = Convert.FromBase64String(email);
+                string base64Encoded = Encoding.UTF8.GetString(encodedByte);
+                kentselDonusumPlatformu.kullanici kull = new kentselDonusumPlatformu.kullanici();
+                kull = kull.getUser(base64Encoded); 
+                        %>
+
+                    Sayın <% =kull.name%> <%= kull.surName%>, sitemize hoşgeldiniz.
+
+                    <%--<asp:Repeater ID="Repeater1" runat="server">
                         <ItemTemplate>Sayın <%# Eval ("isim")  %> <%# Eval ("soyad")  %>, sitemize hoşgeldiniz.</ItemTemplate>
-                    </asp:Repeater>
+                    </asp:Repeater>--%>
                     
                 </div><br />
-                <br /><h3>Kontrol paneliniz:</h3><br />
+                
+                <br /><h3>Kontrol paneliniz:</h3>
+                <br />
+                <br />
                 <ul>
-                    <li runat="server" id="userDetails" ><asp:LinkButton runat="server" OnClick="Unnamed1_Click" >Detaylarınızı girin/güncelleyin</asp:LinkButton></li>
+                    <li runat="server" id="viewUserDetails" ><asp:LinkButton runat="server" OnClick="Unnamed2_Click" >Detaylarınızı görüntüleyin</asp:LinkButton></li>
+
+                    <li runat="server" id="userDetailsUpdate" ><asp:LinkButton runat="server" OnClick="Unnamed1_Click" >Detaylarınızı girin/güncelleyin</asp:LinkButton></li>
                     <li><a href="favorites.aspx"> Favorileriniz</a></li>
                     <li><a href="history"> Geçmiş</a></li>
 

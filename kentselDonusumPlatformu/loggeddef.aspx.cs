@@ -22,25 +22,29 @@ namespace kentselDonusumPlatformu
             { Response.Redirect("Default.aspx"); }
             else
             {
-                string email = Request.QueryString["e"];
+                //string email = Request.QueryString["e"];
 
-                byte[] encodedByte = Convert.FromBase64String(email);
-                string base64Encoded = Encoding.UTF8.GetString(encodedByte);
-                SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-                sqlConn.Open();
-                SqlCommand check = new SqlCommand("SELECT id,isim,soyad, eposta, sifre FROM kullanici WHERE eposta=@email", sqlConn);
-                check.Parameters.AddWithValue("@email", base64Encoded);
+                //byte[] encodedByte = Convert.FromBase64String(email);
+                //string base64Encoded = Encoding.UTF8.GetString(encodedByte);
+
+                //kullanici kull = new kullanici();
+                //kull = kull.getUser(base64Encoded);
+
+                //SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
+                //sqlConn.Open();
+                //SqlCommand check = new SqlCommand("SELECT id,isim,soyad, eposta, sifre FROM kullanici WHERE eposta=@email", sqlConn);
+                //check.Parameters.AddWithValue("@email", base64Encoded);
                 
-                SqlDataReader reader = check.ExecuteReader();
-                while (reader.Read())
-                {
-                    Repeater1.DataSource = reader;
-                    Repeater1.DataBind();
+                //SqlDataReader reader = check.ExecuteReader();
+                //while (reader.Read())
+                //{
+                    //Repeater1.DataSource = kull;
+                    //Repeater1.DataBind();
                     
-                }
-                reader.Close();
+                //}
+                //reader.Close();
 
-                sqlConn.Close();
+                //sqlConn.Close();
 
 
             }
@@ -56,7 +60,13 @@ namespace kentselDonusumPlatformu
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
             string email = Request.QueryString["e"];
-            Response.Redirect("userDetails.aspx?e=" + email);
+            Response.Redirect("updateUserDetails.aspx?e=" + email);
+        }
+
+        protected void Unnamed2_Click(object sender, EventArgs e)
+        {
+            string email = Request.QueryString["e"];
+            Response.Redirect("viewUserDetails.aspx?e=" + email);
         }
     }
 }

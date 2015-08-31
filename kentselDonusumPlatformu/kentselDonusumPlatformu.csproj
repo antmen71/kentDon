@@ -73,7 +73,8 @@
     <Content Include="kayitBasarili.aspx" />
     <Content Include="loggeddef.aspx" />
     <Content Include="style.css" />
-    <Content Include="userDetails.aspx" />
+    <Content Include="updateUserDetails.aspx" />
+    <Content Include="viewUserDetails.aspx" />
     <Content Include="uyeOl.aspx" />
     <Content Include="validateForm.js" />
     <Content Include="Web.config">
@@ -105,12 +106,19 @@
       <DependentUpon>loggeddef.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="userDetails.aspx.cs">
-      <DependentUpon>userDetails.aspx</DependentUpon>
+    <Compile Include="updateUserDetails.aspx.cs">
+      <DependentUpon>updateUserDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="userDetails.aspx.designer.cs">
-      <DependentUpon>userDetails.aspx</DependentUpon>
+    <Compile Include="updateUserDetails.aspx.designer.cs">
+      <DependentUpon>updateUserDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="viewUserDetails.aspx.cs">
+      <DependentUpon>viewUserDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="viewUserDetails.aspx.designer.cs">
+      <DependentUpon>viewUserDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="uyeOl.aspx.cs">
       <DependentUpon>uyeOl.aspx</DependentUpon>

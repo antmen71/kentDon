@@ -37,18 +37,21 @@ namespace kentselDonusumPlatformu
             string txt1Enc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(txt1.Text));
 
 
+            kullanici kull = new kullanici();
+            kull = kull.getUser(email);
 
-            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-            SqlCommand check = new SqlCommand("SELECT eposta, sifre FROM kullanici WHERE eposta=@email", sqlConn);
-            check.Parameters.AddWithValue("@email", email);
 
-            sqlConn.Open();
-            SqlDataReader reader = check.ExecuteReader();
+//            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
+//            SqlCommand check = new SqlCommand("SELECT eposta, sifre FROM kullanici WHERE eposta=@email", sqlConn);
+//            check.Parameters.AddWithValue("@email", email);
 
-            if (reader.Read() && reader.GetString(1) == txt1Enc)
+//            sqlConn.Open();
+//            SqlDataReader reader = check.ExecuteReader();
+//reader.Read() && 
+            if (kull.pass == txt1Enc)
             {
                
-                    string emailEnc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(reader.GetString(0)));
+                    string emailEnc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(kull.email));
                     Response.Redirect("loggeddef.aspx?e=" + emailEnc);
                 
             }

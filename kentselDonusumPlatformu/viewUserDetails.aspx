@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userDetails.aspx.cs" Inherits="kentselDonusumPlatformu.userDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="viewUserDetails.aspx.cs" Inherits="kentselDonusumPlatformu.userDetails" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -82,7 +82,7 @@
                         <tr>
                             <td>İl:</td>
                             <td>     
-                        <asp:DropDownList ID="illerDrpDwn" runat="server" AutoPostBack="True" OnSelectedIndexChanged="illerDrpDwn_SelectedIndexChanged" Height="16px" Width="128px">
+                        <asp:DropDownList ID="illerDrpDwn" runat="server" AutoPostBack="True" Height="16px" Width="128px">
                         </asp:DropDownList></td>
                         </tr>
                         <tr>

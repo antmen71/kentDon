@@ -21,7 +21,7 @@ ul{list-style-type:none;}
 /*--/Top Panel--*/
 
 /*--Middle Panel--*/
-#mainmiddlePan{ inline-block;
+#mainmiddlePan{ 
   overflow: hidden; 
 height:auto; 
 background:url(images/middlepanbg.gif) 0 0 repeat-x #F0F0F0; color:#666; padding:17px 0 0;
