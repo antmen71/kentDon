@@ -21,6 +21,7 @@ namespace kentselDonusumPlatformu
         private int _userType;
         private string _city;
         private string _district;
+        private string _guid;
 
         public string name
         {
@@ -86,12 +87,18 @@ namespace kentselDonusumPlatformu
             set { _district = value; }
         }
 
+        public string guid
+        {
+            get { return _guid; }
+            set { _guid = value; }
+        }
+
 
         public kullanici getUser(string email)
         {
             kullanici kull = new kullanici();
             SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-            SqlCommand sql = new SqlCommand("SELECT id, isim, soyad, eposta, sifre FROM kullanici WHERE eposta = @email", sqlConn);
+            SqlCommand sql = new SqlCommand("SELECT id, isim, soyad, eposta, sifre,guid FROM kullanici WHERE eposta = @email", sqlConn);
             sql.Parameters.AddWithValue("@email", email);
             sqlConn.Open();
 
@@ -105,6 +112,7 @@ namespace kentselDonusumPlatformu
                 kull.surName = reader.GetString(2);
                 kull.email = reader.GetString(3);
                 kull.pass = reader.GetString(4);
+                kull.guid = reader.GetString(5);
             }
 
             sqlConn.Close();
@@ -114,10 +122,28 @@ namespace kentselDonusumPlatformu
         
         public void insertUser(string name, string surname, string email, string password)
         {
+            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
+            SqlCommand insert = new SqlCommand("insert into kullanici(isim,soyad,eposta,sifre,guid,cepTel,evTel,isTel, kullaniciTipi,il,ilce) values(@isim,@soyisim,@eposta,@sifre,@guid,@cepTel,@evTel,@isTel,@kullaniciTipi,@il,@ilce)", sqlConn);
+            insert.Parameters.AddWithValue("@isim", name);
+            insert.Parameters.AddWithValue("@soyisim", surname);
+            insert.Parameters.AddWithValue("@eposta", email);
+            string sifreEnc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(password));
+            insert.Parameters.AddWithValue("@sifre", sifreEnc);
+            Guid guid = Guid.NewGuid();
+            insert.Parameters.AddWithValue("@guid", guid);
+            insert.Parameters.AddWithValue("@cepTel", "");
+            insert.Parameters.AddWithValue("@evTel", "");
+            insert.Parameters.AddWithValue("@isTel", "");
+            insert.Parameters.AddWithValue("@kullaniciTipi", "");
+            insert.Parameters.AddWithValue("@il", "");
+            insert.Parameters.AddWithValue("@ilce", "");
 
+            sqlConn.Open();
+            insert.ExecuteNonQuery();
+            sqlConn.Close();
         }
 
-        public void insertUserDetails(string email, int kullaniciTipi, string cepTel, string evTel, string isTel, string il, string ilce)
+        public void insertUserDetails(int id, string isim, string soyad, string eposta,  int kullaniciTipi, string cepTel, string evTel, string isTel, string il, string ilce)
         {
             kullanici kull = new kullanici();
 
@@ -134,8 +160,13 @@ namespace kentselDonusumPlatformu
             else
             {
                 SqlConnection sqlConn1 = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-                SqlCommand sqlInsertUserDetails = new SqlCommand("INSERT INTO kullaniciDetay(userId, kullaniciTipi,cepTel,evTel,isTel,timeStamp,il,ilce) values(@userId,@kullaniciTipi,@cepTel,@evTel,@isTel,@timeStamp,@il,@ilce)", sqlConn1);
-                sqlInsertUserDetails.Parameters.AddWithValue("@userId", kull.id);
+                SqlCommand sqlInsertUserDetails = 
+                    new SqlCommand("UPDATE kullanici SET isim=@name,soyad=@surname,kullaniciTipi=@kullaniciTipi,cepTel=@cepTel,evTel=@evTel,isTel=@isTel,timeStamp=@timeStamp,il=@il,ilce=@ilce WHERE id=@id" , sqlConn1);
+                sqlInsertUserDetails.Parameters.AddWithValue("@id", id);
+
+                sqlInsertUserDetails.Parameters.AddWithValue("@name", isim);
+                    sqlInsertUserDetails.Parameters.AddWithValue("@surname", surName);
+
                 sqlInsertUserDetails.Parameters.AddWithValue("@kullaniciTipi", kullaniciTipi);
                 sqlInsertUserDetails.Parameters.AddWithValue("cepTel", cepTel);
                 sqlInsertUserDetails.Parameters.AddWithValue("@evTel", evTel);
@@ -152,7 +183,7 @@ namespace kentselDonusumPlatformu
         {
             kullanici kull = new kullanici();
             SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-            SqlCommand sql = new SqlCommand("SELECT k.id, k.isim, k.soyad, k.eposta, k.sifre,kd.cepTel,kd.evTel,kd.isTel, kd.kullaniciTipi,kd.il,kd.ilce FROM kullanici k JOIN kullaniciDetay kd ON k.id=kd.userId WHERE eposta = @email", sqlConn);
+            SqlCommand sql = new SqlCommand("SELECT id, isim, soyad, eposta, sifre,cepTel,evTel,isTel, kullaniciTipi,il,ilce FROM kullanici WHERE eposta = @email", sqlConn);
             sql.Parameters.AddWithValue("@email", email);
             sqlConn.Open();
             SqlDataReader reader = sql.ExecuteReader();

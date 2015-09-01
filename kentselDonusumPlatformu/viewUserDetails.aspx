@@ -42,58 +42,58 @@
                             <td class="auto-style2">Adınız:
                         </td>
                             <td class="auto-style2">
-                        <asp:TextBox ID="TextBox1" runat="server" Width="200px"></asp:TextBox></td>
+                        <asp:TextBox ID="TextBox1" runat="server" Width="200px" ReadOnly="True"></asp:TextBox></td>
                         </tr>
                         <tr>
                             <td>Soyadınız:
                         </td>
                             <td>
-                        <asp:TextBox ID="TextBox2" runat="server" Width="200px"></asp:TextBox></td>
+                        <asp:TextBox ID="TextBox2" runat="server" Width="200px" ReadOnly="True"></asp:TextBox></td>
                         </tr>
                         <tr>
                             <td>Eposta adresiniz:
                         </td>
                             <td>
-                        <asp:TextBox ID="TextBox3" runat="server" Width="200px"></asp:TextBox></td>
+                        <asp:TextBox ID="TextBox3" runat="server" Width="200px" ReadOnly="True"></asp:TextBox></td>
                         </tr>
                         <tr>
                             <td>Cep Telefonunuz:</td>
                             <td>
                       
-                        <asp:TextBox ID="TextBox4" runat="server" Width="200px"></asp:TextBox></td>
+                        <asp:TextBox ID="TextBox4" runat="server" Width="200px" ReadOnly="True"></asp:TextBox></td>
                         </tr>
                         <tr>
                             <td>Ev Telefonunuz:</td>
                             <td>
-                        <asp:TextBox ID="TextBox5" runat="server" Width="200px"></asp:TextBox></td>
+                        <asp:TextBox ID="TextBox5" runat="server" Width="200px" ReadOnly="True"></asp:TextBox></td>
                         </tr>
                         <tr>
                             <td>İş Telefonunuz:</td>
                             <td>
-                        <asp:TextBox ID="TextBox6" runat="server" Width="200px"></asp:TextBox></td>
+                        <asp:TextBox ID="TextBox6" runat="server" Width="200px" ReadOnly="True"></asp:TextBox></td>
                         </tr>
                         <tr>
                             <td>Kullanıcı Tipi:</td>
                             <td>
-                        <asp:CheckBox ID="evsahibi" runat="server" Text="Ev sahibi" ></asp:CheckBox>     
-                        <asp:CheckBox ID="muteahhit" runat="server" Text="Müteahhit" ></asp:CheckBox>     
+                        <asp:CheckBox ID="evsahibi" runat="server" Text="Ev sahibi" Enabled="False" ></asp:CheckBox>     
+                        <asp:CheckBox ID="muteahhit" runat="server" Text="Müteahhit" Enabled="False" ></asp:CheckBox>     
                             </td>
                         </tr>
                         <tr>
                             <td>İl:</td>
                             <td>     
-                        <asp:DropDownList ID="illerDrpDwn" runat="server" AutoPostBack="True" Height="16px" Width="128px">
+                        <asp:DropDownList ID="illerDrpDwn" runat="server" AutoPostBack="True" Height="16px" Width="128px" Enabled="False">
                         </asp:DropDownList></td>
                         </tr>
                         <tr>
                             <td>İlçe:</td>
                             <td>
-                        <asp:DropDownList ID="ilcelerDrpDwn" runat="server" Height="18px" Width="128px">
+                        <asp:DropDownList ID="ilcelerDrpDwn" runat="server" Height="18px" Width="128px" Enabled="False">
                         </asp:DropDownList>
                             </td>
                         </tr>
                     </table>
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Güncelle" Width="126px" />
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Güncelleme Sayfasına Git" Width="201px" />
                     <br /><br />
                 </div>
                 <div id="middlerightPan">

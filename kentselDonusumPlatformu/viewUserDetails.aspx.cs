@@ -50,9 +50,9 @@ namespace kentselDonusumPlatformu
                     chkEv.Checked = true;
                     chkMut.Checked = true;
                 }
-
-                illerDrpDwn.Text = kull1.city;
-                ilcelerDrpDwn.Text = kull1.district;
+                
+                illerDrpDwn.Items.Add(kull1.city);
+                ilcelerDrpDwn.Items.Add(kull1.district);
 
 
             }
@@ -63,29 +63,29 @@ namespace kentselDonusumPlatformu
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            CheckBox evsahibi = (CheckBox)FindControl("evsahibi");
-            CheckBox muteahhit = (CheckBox)FindControl("muteahhit");
+            //CheckBox evsahibi = (CheckBox)FindControl("evsahibi");
+            //CheckBox muteahhit = (CheckBox)FindControl("muteahhit");
             
-            int kullaniciTipi = 3;
+            //int kullaniciTipi = 3;
 
-            if (evsahibi.Checked)
-            { kullaniciTipi = 0; }
-            else if (muteahhit.Checked)
-            { kullaniciTipi = 1; }
-            else if (evsahibi.Checked && muteahhit.Checked)
-            { kullaniciTipi = 2; }
-            else { }
+            //if (evsahibi.Checked)
+            //{ kullaniciTipi = 0; }
+            //else if (muteahhit.Checked)
+            //{ kullaniciTipi = 1; }
+            //else if (evsahibi.Checked && muteahhit.Checked)
+            //{ kullaniciTipi = 2; }
+            //else { }
 
-            string cepTel = TextBox4.Text;
-            string evTel = TextBox5.Text;
-            string isTel = TextBox6.Text;
-            string il = illerDrpDwn.SelectedValue.ToString();
-            string ilce = ilcelerDrpDwn.SelectedValue.ToString();
+            //string cepTel = TextBox4.Text;
+            //string evTel = TextBox5.Text;
+            //string isTel = TextBox6.Text;
+            //string il = illerDrpDwn.SelectedValue.ToString();
+            //string ilce = ilcelerDrpDwn.SelectedValue.ToString();
+
             kullanici kull = new kullanici();
             kull = kull.getUser(TextBox3.Text);
-            kull.insertUserDetails(kull.email, kullaniciTipi,cepTel,evTel,isTel,il,ilce);
             string txt1Enc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(kull.email));
-            Response.Redirect("userDetails.aspx?e=" +txt1Enc);
+            Response.Redirect("updateUserDetails.aspx?e=" +txt1Enc);
 
         }
 

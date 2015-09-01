@@ -79,16 +79,19 @@ namespace kentselDonusumPlatformu
                 return;
             }
 
-            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-            SqlCommand insert = new SqlCommand("insert into kullanici(isim,soyad,eposta,sifre,guid) values(@isim,@soyisim,@eposta,@sifre,@guid)", sqlConn);
-            insert.Parameters.AddWithValue("@isim", isim.Text);
-            insert.Parameters.AddWithValue("@soyisim", soyisim.Text);
-            insert.Parameters.AddWithValue("@eposta", email.Text);
-            string sifreEnc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(password.Text));
-            insert.Parameters.AddWithValue("@sifre", sifreEnc);
-            Guid guid = Guid.NewGuid();
-            insert.Parameters.AddWithValue("@guid", guid);
-            sqlConn.Open();
+
+            kullanici kull = new kullanici();
+            //SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
+            //SqlCommand insert = new SqlCommand("insert into kullanici(isim,soyad,eposta,sifre,guid) values(@isim,@soyisim,@eposta,@sifre,@guid)", sqlConn);
+            //insert.Parameters.AddWithValue("@isim", isim.Text);
+            //insert.Parameters.AddWithValue("@soyisim", soyisim.Text);
+            //insert.Parameters.AddWithValue("@eposta", email.Text);
+            //string sifreEnc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(password.Text));
+            //insert.Parameters.AddWithValue("@sifre", sifreEnc);
+            //Guid guid = Guid.NewGuid();
+            //insert.Parameters.AddWithValue("@guid", guid);
+            //sqlConn.Open();
+            
             bool epostaKayitlimi = checkMail(email.Text);
             string eposta = email.Text;
             if (epostaKayitlimi == false)
@@ -104,13 +107,10 @@ namespace kentselDonusumPlatformu
 
                 try
                 {
-                    insert.ExecuteNonQuery();
-                    
-
+                    kullanici kull1 = new kullanici();
+                    kull1.insertUser(isim.Text, soyisim.Text, email.Text, password.Text);
                     SmtpClient client = new SmtpClient("mail.orkunantmen.com");
-
                     client.Port = 25;
-
                     client.EnableSsl = true;
                     client.Timeout = 10000;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
@@ -159,7 +159,7 @@ namespace kentselDonusumPlatformu
                 }
 
 
-                sqlConn.Close();
+                //sqlConn.Close();
 
 
 

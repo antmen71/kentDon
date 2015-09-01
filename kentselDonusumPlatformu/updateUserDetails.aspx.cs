@@ -14,49 +14,84 @@ namespace kentselDonusumPlatformu
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["e"] == null)
-            { Response.Redirect("loggeddef.aspx"); }
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["e"] == null)
+                { Response.Redirect("loggeddef.aspx"); }
 
-            illerDrpDwn.Items.Clear();
-            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-            sqlConn.Open();
-            SqlCommand getIller = new SqlCommand("SELECT DISTINCT(ILADI) FROM iller ORDER BY ILADI", sqlConn);
-            SqlDataReader reader = getIller.ExecuteReader();
-            while (reader.Read())
-            { illerDrpDwn.Items.Add(reader.GetString(0)); }
+                illerDrpDwn.Items.Clear();
+                iller iller = new iller();
+                List<string> illers = iller.getIller();
+                illerDrpDwn.DataSource = illers;
+                illerDrpDwn.DataBind();
+                illerDrpDwn.Items.Insert(0, "Lütfen seçiniz");
 
-            sqlConn.Close();
+                string email = Request.QueryString["e"];
 
-            string email = Request.QueryString["e"];
+                byte[] encodedByte = Convert.FromBase64String(email);
+                string base64Encoded = Encoding.UTF8.GetString(encodedByte);
 
-            byte[] encodedByte = Convert.FromBase64String(email);
-            string base64Encoded = Encoding.UTF8.GetString(encodedByte);
+                //kullanici kull = new kullanici();
+                //kull = kull.getUser(base64Encoded);
+                //TextBox1.Text = kull.name;
+                //TextBox2.Text = kull.surName;
+                //TextBox3.Text = kull.email;
+                kullanici kull = new kullanici();
+                kullanici kull1 = new kullanici();
+                kull = kull.getUser(base64Encoded);
+                kull1 = kull1.getUserDetails(base64Encoded);
+                TextBox1.Text = kull.name;
+                TextBox2.Text = kull.surName;
+                TextBox3.Text = kull.email;
+                TextBox4.Text = kull1.cellPhone;
+                TextBox5.Text = kull1.homePhone;
+                TextBox6.Text = kull1.workPhone;
+                CheckBox chkEv = (CheckBox)FindControl("evsahibi");
+                CheckBox chkMut = (CheckBox)FindControl("muteahhit");
+                if (kull1.userType == 0)
+                {
+                    chkEv.Checked = true;
+                    chkMut.Checked = false;
+                }
+                else if (kull1.userType == 1)
+                {
+                    chkMut.Checked = true;
+                    chkEv.Checked = false;
+                }
+                else if (kull1.userType == 2)
+                {
+                    chkEv.Checked = true;
+                    chkMut.Checked = true;
+                }
 
-
-            kullanici kull = new kullanici();
-            kull = kull.getUser(base64Encoded);
-
-            TextBox1.Text = kull.name;
-            TextBox2.Text = kull.surName;
-            TextBox3.Text = kull.email;
-
-
+                foreach (string il in illers)
+                { if (il == kull1.city)
+                        illerDrpDwn.SelectedValue = il;
+                    
+                }
+                ilcelerDrpDwn.Items.Clear();
+                iller ilceler = new iller();
+                List<string> ilcelers = ilceler.getIlceler(kull1.city);
+                ilcelerDrpDwn.DataSource = ilcelers;
+                ilcelerDrpDwn.DataBind();
+                foreach (string ilce in ilcelers)
+                {
+                    if (ilce == kull1.city)
+                        ilcelerDrpDwn.SelectedValue = ilce;
+                    return;
+                }
+            }
         }
 
         protected void illerDrpDwn_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            string il = illerDrpDwn.SelectedItem.ToString();
             ilcelerDrpDwn.Items.Clear();
-            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["kentDon"].ConnectionString);
-            sqlConn.Open();
-            SqlCommand check = new SqlCommand("SELECT ILCEADI FROM iller WHERE ILADI=@il ORDER BY ILCEADI", sqlConn);
-            check.Parameters.AddWithValue("@il", illerDrpDwn.SelectedValue.ToString());
-            SqlDataReader reader = check.ExecuteReader();
-            while (reader.Read())
-            { ilcelerDrpDwn.Items.Add(reader.GetString(0)); }
-
-            sqlConn.Close();
-
+            iller ilceler = new iller();
+            List<string> ilcelers = ilceler.getIlceler(il);
+            ilcelerDrpDwn.DataSource = ilcelers;
+            ilcelerDrpDwn.DataBind();
+            
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -73,7 +108,9 @@ namespace kentselDonusumPlatformu
             else if (evsahibi.Checked && muteahhit.Checked)
             { kullaniciTipi = 2; }
             else { }
-
+            string email = TextBox3.Text;
+            string name = TextBox1.Text;
+            string surName = TextBox2.Text;
             string cepTel = TextBox4.Text;
             string evTel = TextBox5.Text;
             string isTel = TextBox6.Text;
@@ -81,7 +118,7 @@ namespace kentselDonusumPlatformu
             string ilce = ilcelerDrpDwn.SelectedValue.ToString();
             kullanici kull = new kullanici();
             kull = kull.getUser(TextBox3.Text);
-            kull.insertUserDetails(kull.email, kullaniciTipi, cepTel, evTel, isTel, il, ilce);
+            kull.insertUserDetails(kull.id,name, surName, email,  kullaniciTipi, cepTel, evTel, isTel, il, ilce);
             string txt1Enc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(kull.email));
             Response.Redirect("loggeddef.aspx?e=" + txt1Enc);
         }

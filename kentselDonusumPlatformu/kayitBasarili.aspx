@@ -38,8 +38,7 @@
             
             Şifre:</label><br />
             <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
-&nbsp;<div id="register"><a href="#">Üye olun</a></div>
-            <asp:Button name="login" type="submit" class="button" Text="Giriş" runat="server" />
+&nbsp;<asp:Button name="login" type="submit" class="button" Text="Giriş" runat="server" OnClick="Unnamed1_Click" />
             <br />
         </form>
       <p class="online"><a href="kaydol.aspx">Siteye giriş için yardım</a></p>
