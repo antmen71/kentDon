@@ -43,6 +43,7 @@ namespace kentselDonusumPlatformu
                 TextBox1.Text = kull.name;
                 TextBox2.Text = kull.surName;
                 TextBox3.Text = kull.email;
+                TextBox3.Enabled = false;
                 TextBox4.Text = kull1.cellPhone;
                 TextBox5.Text = kull1.homePhone;
                 TextBox6.Text = kull1.workPhone;
@@ -72,13 +73,20 @@ namespace kentselDonusumPlatformu
                 ilcelerDrpDwn.Items.Clear();
                 iller ilceler = new iller();
                 List<string> ilcelers = ilceler.getIlceler(kull1.city);
+
+
+
                 ilcelerDrpDwn.DataSource = ilcelers;
                 ilcelerDrpDwn.DataBind();
+
+
+
+
                 foreach (string ilce in ilcelers)
                 {
-                    if (ilce == kull1.city)
+                    if (ilce == kull1.district)
                         ilcelerDrpDwn.SelectedValue = ilce;
-                    return;
+                    
                 }
             }
         }
@@ -92,6 +100,7 @@ namespace kentselDonusumPlatformu
             ilcelerDrpDwn.DataSource = ilcelers;
             ilcelerDrpDwn.DataBind();
             
+            
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -101,12 +110,12 @@ namespace kentselDonusumPlatformu
 
             int kullaniciTipi = 3;
 
-            if (evsahibi.Checked)
-            { kullaniciTipi = 0; }
+            if (evsahibi.Checked && muteahhit.Checked)
+            { kullaniciTipi = 2; }
             else if (muteahhit.Checked)
             { kullaniciTipi = 1; }
-            else if (evsahibi.Checked && muteahhit.Checked)
-            { kullaniciTipi = 2; }
+            else if (evsahibi.Checked)
+            { kullaniciTipi = 0; }
             else { }
             string email = TextBox3.Text;
             string name = TextBox1.Text;
@@ -118,7 +127,7 @@ namespace kentselDonusumPlatformu
             string ilce = ilcelerDrpDwn.SelectedValue.ToString();
             kullanici kull = new kullanici();
             kull = kull.getUser(TextBox3.Text);
-            kull.insertUserDetails(kull.id,name, surName, email,  kullaniciTipi, cepTel, evTel, isTel, il, ilce);
+            kull.updateUserDetails(kull.id,name, surName, email,  kullaniciTipi, cepTel, evTel, isTel, il, ilce);
             string txt1Enc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(kull.email));
             Response.Redirect("loggeddef.aspx?e=" + txt1Enc);
         }

@@ -143,7 +143,7 @@ namespace kentselDonusumPlatformu
             sqlConn.Close();
         }
 
-        public void insertUserDetails(int id, string isim, string soyad, string eposta,  int kullaniciTipi, string cepTel, string evTel, string isTel, string il, string ilce)
+        public void updateUserDetails(int id, string isim, string soyad, string eposta,  int kullaniciTipi, string cepTel, string evTel, string isTel, string il, string ilce)
         {
             kullanici kull = new kullanici();
 
@@ -168,7 +168,7 @@ namespace kentselDonusumPlatformu
                     sqlInsertUserDetails.Parameters.AddWithValue("@surname", surName);
 
                 sqlInsertUserDetails.Parameters.AddWithValue("@kullaniciTipi", kullaniciTipi);
-                sqlInsertUserDetails.Parameters.AddWithValue("cepTel", cepTel);
+                sqlInsertUserDetails.Parameters.AddWithValue("@cepTel", cepTel);
                 sqlInsertUserDetails.Parameters.AddWithValue("@evTel", evTel);
                 sqlInsertUserDetails.Parameters.AddWithValue("@isTel", isTel);
                 sqlInsertUserDetails.Parameters.AddWithValue("@timeStamp", DateTime.Now);
