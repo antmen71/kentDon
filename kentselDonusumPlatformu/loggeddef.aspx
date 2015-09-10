@@ -55,7 +55,6 @@
                 
                 <br /><h3>Kontrol paneliniz:</h3>
                 <br />
-                <br />
                 <ul>
                     <li runat="server" id="viewUserDetails" ><asp:LinkButton runat="server" OnClick="Unnamed2_Click" >Detaylarınızı görüntüleyin</asp:LinkButton></li>
 

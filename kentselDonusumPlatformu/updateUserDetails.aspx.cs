@@ -131,5 +131,11 @@ namespace kentselDonusumPlatformu
             string txt1Enc = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(kull.email));
             Response.Redirect("loggeddef.aspx?e=" + txt1Enc);
         }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            string email = Request.QueryString["e"];
+            Response.Redirect("loggeddef.aspx?e=" + email);
+        }
     }
 }

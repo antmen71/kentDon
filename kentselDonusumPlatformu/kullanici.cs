@@ -131,12 +131,12 @@ namespace kentselDonusumPlatformu
             insert.Parameters.AddWithValue("@sifre", sifreEnc);
             Guid guid = Guid.NewGuid();
             insert.Parameters.AddWithValue("@guid", guid);
-            insert.Parameters.AddWithValue("@cepTel", "");
-            insert.Parameters.AddWithValue("@evTel", "");
-            insert.Parameters.AddWithValue("@isTel", "");
-            insert.Parameters.AddWithValue("@kullaniciTipi", "");
-            insert.Parameters.AddWithValue("@il", "");
-            insert.Parameters.AddWithValue("@ilce", "");
+            insert.Parameters.AddWithValue("@cepTel", DBNull.Value);
+            insert.Parameters.AddWithValue("@evTel", DBNull.Value);
+            insert.Parameters.AddWithValue("@isTel", DBNull.Value);
+            insert.Parameters.AddWithValue("@kullaniciTipi", 3);
+            insert.Parameters.AddWithValue("@il", DBNull.Value);
+            insert.Parameters.AddWithValue("@ilce", DBNull.Value);
 
             sqlConn.Open();
             insert.ExecuteNonQuery();
@@ -194,12 +194,54 @@ namespace kentselDonusumPlatformu
                 kull.surName = reader.GetString(2);
                 kull.email = reader.GetString(3);
                 kull.pass = reader.GetString(4);
-                kull.cellPhone = reader.GetString(5);
-                kull.homePhone = reader.GetString(6);
-                kull.workPhone = reader.GetString(7);
-                kull.userType = reader.GetInt32(8);
-                kull.city = reader.GetString(9);
-                kull.district = reader.GetString(10);
+                if (reader.IsDBNull(5))
+                {
+                    kull.cellPhone = "";
+                }
+                else
+                {
+                    kull.cellPhone = reader.GetString(5);
+                }
+                if (reader.IsDBNull(6))
+                {
+                    kull.homePhone = "";
+                }
+                else
+                {
+                    kull.homePhone = reader.GetString(6);
+                }
+                if (reader.IsDBNull(7))
+                {
+                    kull.workPhone = "";
+                }
+                else
+                {
+                    kull.workPhone = reader.GetString(7);
+                }
+                if (reader.IsDBNull(8))
+                {
+                    kull.userType = 3;
+                }
+                else
+                {
+                    kull.userType = reader.GetInt32(8);
+                }
+                if (reader.IsDBNull(9))
+                {
+                    kull.city = "";
+                }
+                else
+                {
+                    kull.city = reader.GetString(9);
+                }
+                if (reader.IsDBNull(10))
+                {
+                    kull.district = "";
+                }
+                else
+                {
+                    kull.district = reader.GetString(10);
+                }
             }
 
             return kull;

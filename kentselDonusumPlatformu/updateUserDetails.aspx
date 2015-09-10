@@ -37,6 +37,7 @@
         <div id="mainmiddlePan">
             <div id="middlePan">
                 <div id="middleleftPan">
+                    <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Kontrol Paneli</asp:LinkButton><br /><br />
                     <table class="auto-style1">
                         <tr>
                             <td class="auto-style2">Adınız:
@@ -93,7 +94,7 @@
                             </td>
                         </tr>
                     </table>
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Güncelle" Width="126px" />
+                    <br /><asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Güncelle" Width="126px" />
                     <br /><br />
                 </div>
                 <div id="middlerightPan">
