@@ -59,9 +59,11 @@
                     <li runat="server" id="viewUserDetails" ><asp:LinkButton runat="server" OnClick="Unnamed2_Click" >Detaylarınızı görüntüleyin</asp:LinkButton></li>
 
                     <li runat="server" id="userDetailsUpdate" ><asp:LinkButton runat="server" OnClick="Unnamed1_Click" >Detaylarınızı girin/güncelleyin</asp:LinkButton></li>
-                    <li><a href="favorites.aspx"> Favorileriniz</a></li>
+                    <li><a href="search.aspx">Arama</a></li>
+                     <li><a href="favorites.aspx"> Favorileriniz</a></li>
                     <li><a href="history"> Geçmiş</a></li>
 
+                    <li><a href="default.aspx">Çıkış</a></li>
 
                 </ul>
             </div>
